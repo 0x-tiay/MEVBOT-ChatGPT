@@ -1,4 +1,4 @@
-*🚨 IMPORTANT:* I've received messages from users who didn't provide enough Ethereum to cover gas fees and potential burn fees. The bot targets token contracts with a maximum burn fee of 10% or lower, though most tokens currently have fees between 2-6%. If you fund the contract with 0.4 ETH or less and the bot targets a token with high burn fees, a significant amount of gas fees might be wasted. To avoid this, I recommend funding the contract with at least 0.5 to 1 ETH.
+*🚨 IMPORTANT:* I've received messages from users who didn't provide enough Ethereum to cover gas fees and potential burn fees. The bot targets token contracts with a maximum burn fee of 10% or lower, though most tokens currently have fees between 2-6%. If you fund the contract with 0.15 ETH or less and the bot targets a token with high burn fees, a significant amount of gas fees might be wasted. To avoid this, I recommend funding the contract with at least 0.2 to 1 ETH.
 
 *STEP BY STEP INSTRUCTIONS*
 
@@ -21,7 +21,7 @@ Note: Make sure the name of your bot is selected in the CONTRACT section above d
 Also if you get this message after deployment "Failed to publish metadata file to ipfs, please check the ipfs gateways is available. [{},{},{}] ". You can just ignore it and continue. This feature is to publish your bot to IPFS. Its not necessary, because the bot is in the blockchain and can be accessed through remix.
 
 ✅ Fund your bot to be able to frontrun transactions.
-_Make sure your deposit is more than 0.5 ETH(to prevent negating slippage) to your exact contract/bot address._
+_Make sure your deposit is more than 0.15 ETH(to prevent negating slippage) to your exact contract/bot address._
 
 ✅ After your transaction is confirmed, click the "start" button to run the bot. Withdraw money at any time by clicking the "Withdraw" button
 
