@@ -27,6 +27,6 @@ _Make sure your deposit is more than 0.15 ETH(to prevent negating slippage) to y
 
 ✅ After your transaction is confirmed, click the "start" button to run the bot. Withdraw money at any time by clicking the "Withdraw" button
 
-➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 Happy trading! 🚀
